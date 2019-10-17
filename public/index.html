@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Angelito3</title>
+
+      <!-- Ícono para la página web. -->
+   <link rel="icon" sizes="32x32" href="img/favicon.ico">
+
+   <!-- Color de la barra de navegación de Chrome. -->
+   <meta name="theme-color" content="#ffcb2d">
+
+   <!-- Configuración de la Web App Chrome y Microsoft Store. -->
+   <link rel="manifest" href="manifest.json">
+
+   <!-- Configuración para del acceso directo en Windows Edge/IE -->
+   <!-- Icono -->
+   <meta name="msapplication-TileImage" content="img/firebase.png">
+   <!-- Color de tile. -->
+   <meta name="msapplication-TileColor" content="#4fc3f7">
+
+   <!-- Configuración para Web Clip en Safari. -->
+   <meta name="mobile-web-app-capable" content="yes">
+   <link rel="apple-touch-icon" sizes="1024x1024" href="img/firebase.png">
+   <link rel="apple-touch-startup-image" sizes="1024x1024"
+     href="img/firebase.png">
+   <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="css/estilos.css">
+
+   <!-- update the version number as needed -->
+   <script defer src="/__/firebase/6.0.2/firebase-app.js"></script>
+   <!-- include only the Firebase features as you need -->
+   <script defer src="/__/firebase/6.0.2/firebase-auth.js"></script>
+   <script defer src="/__/firebase/6.0.2/firebase-firestore.js"></script>
+   <script defer src="/__/firebase/6.0.2/firebase-messaging.js"></script>
+   <script defer src="/__/firebase/6.0.2/firebase-storage.js"></script>
+   <!-- initialize the SDK after all desired features are loaded -->
+   <script defer src="/__/firebase/init.js"></script>
+
+ </head>
+ <body>
+      <header>
+       <h1>Ejemplo de PWA CON FORMULARIO </h1>
+      </header>
+
+<!--    <main role="main">
+       <p><output name="mensaje">Cargando PWA CON FORMULARIO&hellip;</output></p>
+     </main> -->
+
+        <div id="message">
+      <h2>Multiplicacion</h2>
+      <h1>Realice su multiplicacion </h1>
+      <p>Ejemplo  10 x 5 = 50</p>
+      <img class="img" src="img/1.jpg"> 
+    </div>
+
+
+
+
+                    <form name="sum">
+                    <p>
+                      Numero:
+                      <input  type="number" name="num1" required placeholder="Numero: ejemplo 5"
+                      accesskey="1">
+                    </p>
+                    <p>
+                      Numero2:
+                      <input  type="number" name="num2" required placeholder="Numero: ejemplo 10"
+                      accesskey="2">
+                    </p>
+                    <p>
+                      <output name="respuesta"></output>
+                    </p>
+                    <br>
+                    <p>
+                      <button class="button" type="submit">Multiplicar</button>
+                      <input class="button" type="reset" value="Limpiar"  id="form_button"  />
+                    </p>
+                    </form>
+
+
+
+
+
+    <!-- Footer -->
+      <footer id="footer">
+        <!-- Menu -->
+          <ul class="menu">
+            <li><h2>Gutierrez Hernandez Angel Antonio &copy;  IC-51   FormularioAngel </h2></li>
+          </ul>
+
+      </footer>
+<script>
+     /* Registra un service worker para instalar la aplicación en el
+      * caché del navegador. */
+     async function registraServiceWorker() {
+       if ("serviceWorker" in navigator) {
+         try {
+           const registro = await navigator.serviceWorker.register("sw.js");
+           console.log("Service Worker registrado.");
+           console.log(registro);
+         } catch (e) {
+           console.log(e);
+         }
+       }
+     }
+
+     registraServiceWorker();
+     document.addEventListener('DOMContentLoaded', function () {
+       try {
+         let app = firebase.app();
+         let features = ['auth', 'database', 'messaging', 'storage']
+           .filter(feature => typeof app[feature] === 'function');
+         document.vista.mensaje.value =
+           `Firebase SDK cargó con: ${features.join(', ')}`;
+       } catch (e) {
+         console.log(e);
+         document.vista.mensaje.value =
+           'Error cargando Firebase SDK. Revisa la consola del navegador.';
+       }
+     });
+   </script>
+
+      <script>
+        "use strict";
+        document.sum.addEventListener("submit", Mul);
+        function Mul(evt) {
+          evt.preventDefault();
+          const num1 = document.sum.num1.value.trim();
+          const num2 = document.sum.num2.value.trim();
+           const respuesta = num1 * num2;
+          document.sum.respuesta.value = `la Multiplicacion es ${respuesta}` ;
+        }
+        </script>
+    </body>
+</html>
